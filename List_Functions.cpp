@@ -1,8 +1,18 @@
-#include <iostream>
-#include <fstream>
 #include "Functions.h"
 
-int countWord(string name_file) {
+void if_exist(string name_file)
+{
+    ifstream file(name_file);
+    if (!file.is_open())
+    {
+        cout << "Файл отсутствует"; 
+        exit(1);
+    }
+    file.close();
+}
+
+int countWord(string name_file) 
+{
     int size = 0;
     string words;
     ifstream file(name_file);
@@ -60,30 +70,30 @@ void write_list(LIST* lst, string name_file, int size)
     fstream file(name_file, ios::out);
     if (file.is_open())
     {
-        LIST* data = lst, * p3 = data->next;
+        LIST* data = lst;
         for (int i = 0; i < size; i++)
         {
             file << (data->word);
             data = data->next;
             if ((size - 1) != i)
             {
-                file << endl;
+                file << " ";
             }
         }
+        data = lst;
     }
     else { cout << "Файл отсутствует"; exit(1); }
     file.close();
 }
 
-int findWord(string name_file, LIST* words, int size) {
+int findWord(LIST* lst, string name_file, int size) {
     int result = 0;
     string line;
     ifstream file(name_file);
     if (file.is_open())
     {
-        LIST* head = words;
-        LIST* data = head, * fol = NULL;
-        fol = data->next;
+        LIST* data = lst, * fol = data->next;
+
         while (getline(file, line)) {
             for (int i = 0; i < size; i++) {
                 if ((line).find((data->word)) != string::npos)
@@ -95,7 +105,7 @@ int findWord(string name_file, LIST* words, int size) {
                 if (fol) { fol = fol->next; }
                 else { break; };
             }
-            data = head;
+            data = lst;
             fol = data->next;
             if (result) { break; }
         }
