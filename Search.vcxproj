@@ -145,6 +145,7 @@
   <ItemGroup>
     <Text Include="11.txt" />
     <Text Include="22.txt" />
+    <Text Include="33.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Functions.h" />
