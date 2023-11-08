@@ -1,4 +1,4 @@
-#include "Functions.h"
+#include "Head_List.h"
 
 void if_exist(string name_file)
 {
@@ -14,12 +14,12 @@ void if_exist(string name_file)
 int countWord(string name_file) 
 {
     int size = 0;
-    string words;
     ifstream file(name_file);
     if (file.is_open())
     {
         if (sizeof(file) != 0)
         {
+            string words;
             while (getline(file, words, ' '))
             {
                 size++;
