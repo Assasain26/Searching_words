@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Directory_Functions.cpp" />
     <ClCompile Include="List_Functions.cpp" />
     <ClCompile Include="Search.cpp" />
   </ItemGroup>
@@ -148,7 +149,8 @@
     <Text Include="33.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Functions.h" />
+    <ClInclude Include="Head_Directory.h" />
+    <ClInclude Include="Head_List.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

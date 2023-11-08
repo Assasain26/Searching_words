@@ -21,6 +21,9 @@
     <ClCompile Include="List_Functions.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Directory_Functions.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="11.txt">
@@ -34,7 +37,10 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Functions.h">
+    <ClInclude Include="Head_List.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Head_Directory.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
   </ItemGroup>
