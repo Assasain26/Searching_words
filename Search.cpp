@@ -1,5 +1,6 @@
 ﻿#include <locale>
-#include "Functions.h"
+#include "Head_List.h"
+#include "Head_Directory.h"
 
 int main()
 {
@@ -7,7 +8,7 @@ int main()
 
 
     string path_search;
-    cout << "Введите путь поиска: ";
+    cout << "Введите путь поиска: "; // A:\\tests_1
     cin >> path_search;
     
 
@@ -35,18 +36,21 @@ int main()
     
 
     /* Тестовые данные */
-    LIST* lst1 = NULL;
+    LIST* lst_1 = NULL;
     int size_lst1 = countWord(file_words);
-    lst1 = read_list(lst1, file_words, size_lst1);
-    int otvet = findWord(lst1, "22.txt", size_lst1);
+    lst_1 = read_list(lst_1, file_words, size_lst1);
+    int otvet = findWord(lst_1, "22.txt", size_lst1);
     cout << otvet;
     /* Тестовые данные */
+
+    LIST* lst_files = NULL;
+    lst_files = fillFiles("A:\\tests_1", lst_files);
 
 
     string file_output;
     cout << "Введите файл вывода: ";
     cin >> file_output; // 33.txt
-    write_list(lst1, file_output, size_lst1);
+    write_list(lst_1, file_output, size_lst1);
 
     return 0;
 }
