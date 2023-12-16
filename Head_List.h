@@ -3,19 +3,18 @@
 #include <fstream>
 #include <string>
 
-using namespace std;
+struct LIST { std::string word; LIST* next; };
 
-typedef unsigned char uchar;
-typedef unsigned short ushort;
+int countWord(LIST* lst);
 
-struct LIST { string word; LIST* next; };
+void if_exist(std::string name_file);
 
-int countWord(string name_file);
+LIST* push_back(LIST* lst, std::string word);
 
-void if_exist(string name_file);
+LIST* do_Null_last(LIST* lst);
 
-LIST* read_list(LIST* lst, string name_file, int size);
+LIST* read_list(LIST* lst, std::string name_file);
 
-void write_list(LIST* lst, string name_file, int size);
+void write_list(LIST* lst, std::string name_file, int size);
 
-int findWord(LIST* lst, string name_file, int size);
+int findWord(LIST* lst, std::string name_file, int size);

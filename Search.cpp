@@ -1,56 +1,75 @@
 ﻿#include <locale>
-#include "Head_List.h"
-#include "Head_Directory.h"
+#include "Head_List.h" // Функции со списком
+#include "Head_Directory.h" // Функции работа с директориями
 
 int main()
 {
     setlocale(LC_ALL, "Russian");
 
 
-    string path_search;
-    cout << "Введите путь поиска: "; // A:\\tests_1
-    cin >> path_search;
+    std::string path_search;
+    std::cout << "Введите путь поиска: "; 
+    std::cin >> path_search; // A:\\tests_1
     
 
     short depth = 0;
     while ((depth <= 0) || (depth > 5))
     {
-        cout << "Введите глубину поиска (0 < x < 6): ";
-        cin >> depth;
+        std::cout << "Введите глубину поиска (0 < x < 6): ";
+        std::cin >> depth;
         if (depth <= 0)
         {
-            cout << "Глубина должна быть больше 0!\n\n";
+            std::cout << "Глубина должна быть больше 0!\n\n";
         }
         if (depth > 5)
         {
-            cout << "Глубина должна быть меньше 5!\n\n";
+            std::cout << "Глубина должна быть меньше 5!\n\n";
         }
     }
+    depth = depth - 1; // 0, 1, 2, ..., n
 
 
-    string file_words;
-    cout << "Введите файл слов: ";
-    cin >> file_words; // 11.txt
-    if_exist(file_words);
+    std::string name_file_words;
+    std::cout << "Введите файл слов: ";
+    std::cin >> name_file_words; // A://tests_1/words.txt
+    if_exist(name_file_words);
 
+
+    // Чтение слов из файла, в котором слова отделены пробелом и последнее тоже.
+    LIST* lst_words = NULL;
+    lst_words = new LIST;
+    lst_words = read_list(lst_words , name_file_words);
+    int size_lst_words = countWord(lst_words);
+
+
+    // Запись в список всех txt файлов, с заданной глубиной
+    LIST* list_dirs = NULL;
+    list_dirs = new LIST;
+    list_dirs = fillFiles(path_search, list_dirs, depth); 
+    int size_lst_dirs = countWord(list_dirs);
+
+
+    // Результат проверки совпадений слов в txt файлов.
+    LIST* dirs = list_dirs;
+    while (dirs->word != "")
+    {
+        int otvet = findWord(lst_words, dirs->word, size_lst_words);
+        if (otvet == 1)
+        {
+            dirs->word = dirs->word + " - ИМЕЕТ искомые слова";
+        }
+        else
+        {
+            dirs->word = dirs->word + " - НЕ ИМЕЕТ искомые слова";
+        }
+        dirs = dirs->next;
+    }
     
-
-    /* Тестовые данные */
-    LIST* lst_1 = NULL;
-    int size_lst1 = countWord(file_words);
-    lst_1 = read_list(lst_1, file_words, size_lst1);
-    int otvet = findWord(lst_1, "22.txt", size_lst1);
-    cout << otvet;
-    /* Тестовые данные */
-
-    LIST* lst_files = NULL;
-    lst_files = fillFiles("A:\\tests_1", lst_files);
-
-
-    string file_output;
-    cout << "Введите файл вывода: ";
-    cin >> file_output; // 33.txt
-    write_list(lst_1, file_output, size_lst1);
+    // Вывод в файл.
+    std::string file_output;
+    std::cout << "Введите файл вывода: ";
+    std::cin >> file_output; // 33.txt
+    write_list(list_dirs, file_output, size_lst_dirs);
 
     return 0;
 }

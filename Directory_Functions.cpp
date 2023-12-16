@@ -1,26 +1,26 @@
 #include "Head_List.h"
 #include "Head_Directory.h"
 
-typedef map<string, WIN32_FIND_DATAA> FilesMap;
 
 
-LIST* fillFiles(string mDirPath, LIST* mFiles) {
-    if (mDirPath.empty() != true) 
+LIST* fillFiles(const std::string& DirPath, LIST* Files, short depth = 0)
+{
+    if (DirPath.empty() != true)
     {
-        FilesMap::value_type::second_type fmap;
-        HANDLE hFind = FindFirstFileA(string(mDirPath + "\\*.txt").c_str(), &fmap);
-        if (INVALID_HANDLE_VALUE != hFind)
-            mFiles = new LIST;
-            LIST* data = mFiles;
-            do {
-                if (fmap.dwFileAttributes != FILE_ATTRIBUTE_DIRECTORY) {
-                     data->word = fmap.cFileName;
-                     data->next = new LIST;
-                     data = data->next;
-                }
-            } while (NULL != FindNextFileA(hFind, &fmap));
-            data->next = NULL;
-            FindClose(hFind);
+        for (auto& path : std::filesystem::directory_iterator
+        (DirPath, std::filesystem::directory_options::skip_permission_denied))
+        {
+            std::string path_string = path.path().string();
+            if (path.is_directory() && depth)
+            {
+                Files = fillFiles(path_string, Files, depth - 1);
+            }
+            else if (path_string.find(".txt") != std::string::npos)
+            {
+                Files = push_back(Files, path_string);
+            }
+        }
+        Files = do_Null_last(Files);
     }
-     return mFiles;
+    return Files;
 }

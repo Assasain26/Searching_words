@@ -1,6 +1,5 @@
 #pragma once
 #include "Head_List.h"
-#include <map>
-#include <Windows.h>
+#include <filesystem>
 
-LIST* fillFiles(string mDirPath, LIST* mFiles);
+LIST* fillFiles(const std::string& DirPath, LIST* Files, short depth);
