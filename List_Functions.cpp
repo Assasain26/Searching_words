@@ -1,18 +1,5 @@
 #include "Head_List.h"
 
-// Функция проверки существования файла
-void if_exist(std::string name_file)
-{
-    std::ifstream file(name_file);
-    if (!file.is_open())
-    {
-        std::cout << "Файл отсутствует";
-        exit(1);
-    }
-    file.close();
-}
-
-
 int countWord(LIST* lst)
 {
     int size = 0;
@@ -50,7 +37,7 @@ LIST* push_back(LIST* lst, std::string word)
     return lst;
 }
 
-// Запись в список из файла, строк, разделённые пробелом и последним.
+// Запись в список из файла, слов, разделённые пробелом и последним.
 LIST* read_list(LIST* lst, std::string name_file)
 {
     std::ifstream file(name_file);
@@ -68,12 +55,12 @@ LIST* read_list(LIST* lst, std::string name_file)
             data = do_Null_last(data);
         }
 
-        else { std::cout << "Файл отсутствует"; exit(1); }
+        else { std::cout << "Файл не смог открыться"; exit(10); }
 
         file.close();
     }
 
-    else { std::cout << "Файл пустой"; exit(1); }
+    else { std::cout << "Файл слов пустой"; exit(1); }
 
     return lst;
 }
@@ -92,17 +79,17 @@ void write_list(LIST* lst, std::string name_file, int size)
             if ((size - 1) != i)
             {
                 file << "\n";
+                file << "__________________________________________________________\n";
             }
         }
         data = lst;
     }
-    else { std::cout << "Файл отсутствует"; exit(1); }
     file.close();
 }
 
 // Функция поиска слов в заданном файле.
-int findWord(LIST* lst, std::string name_file, int size) {
-    int result = 0;
+std::string findWord(LIST* lst, std::string name_file, int size) {
+    std::string result = "";
     std::string line;
     std::ifstream file(name_file);
     if (file.is_open())
@@ -113,7 +100,7 @@ int findWord(LIST* lst, std::string name_file, int size) {
             for (int i = 0; i < size; i++) {
                 if ((line).find((data->word)) != std::string::npos)
                 {
-                    result = 1;
+                    result = result + data->word;
                     break;
                 }
                 data = data->next;
@@ -122,10 +109,10 @@ int findWord(LIST* lst, std::string name_file, int size) {
             }
             data = lst;
             fol = data->next;
-            if (result) { break; }
+            if (result != "") { break; }
         }
     }
-    else { std::cout << "Файл отсутствует"; exit(1); }
+    else { std::cout << "Файл исчез во время работы"; exit(15); }
     file.close();
     return result;
 }

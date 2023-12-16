@@ -2,6 +2,18 @@
 #include "Head_List.h" // Функции со списком
 #include "Head_Directory.h" // Функции работа с директориями
 
+// Процедура проверки существования файла
+void if_exist(std::string name_file)
+{
+    std::ifstream file(name_file);
+    if (!file.is_open())
+    {
+        std::cout << "Файл отсутствует";
+        exit(1);
+    }
+    file.close();
+}
+
 int main()
 {
     setlocale(LC_ALL, "Russian");
@@ -9,7 +21,7 @@ int main()
 
     std::string path_search;
     std::cout << "Введите путь поиска: "; 
-    std::cin >> path_search; // A:\\tests_1
+    std::cin >> path_search; // A:\tests_1
     
 
     short depth = 0;
@@ -53,10 +65,10 @@ int main()
     LIST* dirs = list_dirs;
     while (dirs->word != "")
     {
-        int otvet = findWord(lst_words, dirs->word, size_lst_words);
-        if (otvet == 1)
+        std::string otvet = findWord(lst_words, dirs->word, size_lst_words);
+        if (otvet != "")
         {
-            dirs->word = dirs->word + " - ИМЕЕТ искомые слова";
+            dirs->word = dirs->word + " - ИМЕЕТ слово: " + otvet;
         }
         else
         {
@@ -64,12 +76,15 @@ int main()
         }
         dirs = dirs->next;
     }
+
     
     // Вывод в файл.
     std::string file_output;
     std::cout << "Введите файл вывода: ";
-    std::cin >> file_output; // 33.txt
+    std::cin >> file_output; // test.txt
     write_list(list_dirs, file_output, size_lst_dirs);
+
+    std::cout << "\nФайл был успешно записан!\n";
 
     return 0;
 }

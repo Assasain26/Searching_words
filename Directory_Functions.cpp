@@ -1,14 +1,13 @@
 #include "Head_List.h"
 #include "Head_Directory.h"
 
-
-
+// Функция записи пути файла в список.
 LIST* fillFiles(const std::string& DirPath, LIST* Files, short depth = 0)
 {
     if (DirPath.empty() != true)
     {
         for (auto& path : std::filesystem::directory_iterator
-        (DirPath, std::filesystem::directory_options::skip_permission_denied))
+            (DirPath, std::filesystem::directory_options::skip_permission_denied))
         {
             std::string path_string = path.path().string();
             if (path.is_directory() && depth)

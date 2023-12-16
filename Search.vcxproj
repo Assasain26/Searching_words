@@ -145,13 +145,11 @@
     <ClCompile Include="Search.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="11.txt" />
-    <Text Include="22.txt" />
-    <Text Include="33.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Head_Directory.h" />
     <ClInclude Include="Head_List.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="test.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
